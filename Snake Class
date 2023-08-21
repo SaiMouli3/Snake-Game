@@ -1,0 +1,64 @@
+from turtle import Turtle,Screen
+import time
+STARTING_POSITION=[(0,0) , (-20,0) , (20,0)]
+UP=90
+DOWN=270
+LEFT=180
+RIGHT=0
+
+class Snake:
+
+
+    def __init__(self):
+        self.seg=[]
+        self.create_snake()
+        self.head=self.seg[0]
+
+
+    def create_snake(self):
+        for str in STARTING_POSITION:
+            my_seg = Turtle("square")
+            my_seg.color("orange")
+            my_seg.speed(1)
+            my_seg.penup()
+            my_seg.goto(str)
+            self.seg.append(my_seg)
+    def add_seg(self,pos):
+        new_seg = Turtle("square")
+        new_seg.color("orange")
+        new_seg.penup()
+
+        new_seg.goto(pos)
+        self.seg.append(new_seg)
+
+
+    def extend(self):
+        self.add_seg(self.seg[-1].position())
+
+
+
+    def move(self):
+            for se in range(len(self.seg) - 1, 0, -1):
+                new_x = self.seg[se - 1].xcor()
+                new_y = self.seg[se - 1].ycor()
+                self.seg[se].goto(new_x, new_y)
+
+            self.seg[0].forward(10)
+
+    def up(self):
+        if self.head.heading() != DOWN:
+            self.seg[0].setheading(UP)
+
+    def down(self):
+        if self.head.heading() != UP:
+            self.seg[0].setheading(DOWN)
+
+
+    def left(self):
+        if self.head.heading() != RIGHT:
+         self.seg[0].setheading(LEFT)
+
+    def right(self):
+        if self.head.heading() != LEFT:
+         self.seg[0].setheading(RIGHT)
+
